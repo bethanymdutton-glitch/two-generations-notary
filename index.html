@@ -82,8 +82,8 @@ function Header(){
       <div className="mt-4 text-center">
         <a href="mailto:info@twogenerationsnotary.com" className="text-sm sm:text-base" style={{color:"var(--gold)"}}>info@twogenerationsnotary.com</a>
       </div>
-      <nav className="mt-5 pt-4 border-t flex justify-center gap-5 sm:gap-8 h-cin text-[11px] sm:text-xs" style={{borderColor:"var(--line)"}}>
-        {[["#home","Home"],["#about","About"],["#services","Services"],["#contact","Contact"]].map(([h,l])=><a key={h} href={h} className="hover:opacity-70">{l}</a>)}
+      <nav className="mt-5 pt-4 border-t flex flex-wrap justify-center gap-x-5 gap-y-2 sm:gap-x-8 h-cin text-[11px] sm:text-xs" style={{borderColor:"var(--line)"}}>
+        {[["#home","Home"],["#about","About"],["#services","Services"],["#title","Title Companies"],["#contact","Contact"]].map(([h,l])=><a key={h} href={h} className="hover:opacity-70">{l}</a>)}
       </nav>
     </div>
   </header>);
@@ -91,6 +91,7 @@ function Header(){
 
 const services=[["Mobile Notary"],["Loan Signing Agent"],["Real Estate Documents"],["Medical & Family"],["Business Documents"]];
 const P={
+ clock:"M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 6v6l4 2",
  home:"M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10",
  shield:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
  user:"M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
@@ -159,6 +160,7 @@ function Home(){
     <div className="mt-10 grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
       <List t="Notary Services" items={colA}/>
       <List t="Loan & Real Estate" items={colB}/>
+      <div className="md:col-span-2 text-center"><a href="#title" className="btn btn-line">Title company? See our signing coverage</a></div>
       
     </div>
   </section>
@@ -290,15 +292,95 @@ function Footer(){
   </footer>);
 }
 
+const TITLE_TYPES=["Purchase signing","Refinance signing","HELOC signing","Reverse mortgage signing","Hospital or home signing","Other"];
+const COUNTIES=["Morgan County","Limestone County","Madison County","Lawrence County"];
+const tcards=[
+ ["pin","Coverage",["Morgan County","Limestone County","Madison County","Lawrence County","Based in Decatur, Alabama"]],
+ ["shield","Credentials",["Commissioned Alabama notaries","Certified Notary Signing Agents through the National Notary Association","Insured and background-screened","Confidential and secure"]],
+ ["clock","Availability",["Weekdays","Weeknights","Weekends","We reply to coverage requests the same business day"]],
+ ["pen","Signing types",["Purchase","Refinance","HELOC","Reverse mortgage","Hospital and home signings"]],
+ ["file","Document handling",["Printing of signing packages","Scanning and returning completed documents","Documents accepted by email"]],
+];
+function Title(){
+  const [f,setF]=useState({company:"",name:"",phone:"",email:"",type:TITLE_TYPES[0],county:COUNTIES[0],when:"",msg:""});
+  const [sent,setSent]=useState(false);
+  const [ok,setOk]=useState(null);
+  const set=k=>e=>setF({...f,[k]:e.target.value});
+  const go=()=>{const el=document.getElementById("coverage-form"); if(el) el.scrollIntoView({behavior:"smooth"});};
+  const submit=()=>{ if(f.company&&f.name&&(f.phone||f.email)){ setSent(true); setOk(null);
+    fetch("https://formspree.io/f/mbggwwjj",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({_subject:"Signing coverage request from "+f.company,request_type:"title company coverage request",company:f.company,contact_name:f.name,phone:f.phone,...(f.email?{email:f.email}:{}),signing_type:f.type,county:f.county,date_and_time:f.when,message:f.msg})}).then(r=>setOk(r.ok)).catch(()=>setOk(false));
+  } };
+  const text="Signing coverage request\n\nCompany: "+f.company+"\nContact: "+f.name+"\nPhone: "+f.phone+"\nEmail: "+f.email+"\nSigning type: "+f.type+"\nCounty: "+f.county+"\nDate and time: "+f.when+"\n\n"+f.msg;
+  const mail="mailto:info@twogenerationsnotary.com?subject="+encodeURIComponent("Signing coverage request from "+f.company)+"&body="+encodeURIComponent(text);
+  return(<>
+  <section className="bokeh dk">
+    <div className="max-w-3xl mx-auto px-5 py-14 md:py-20 text-center">
+      <p className="h-cin text-[11px]" style={{color:"var(--gold)"}}>For Title Companies</p>
+      <h1 className="serif text-4xl sm:text-5xl font-semibold leading-[1.1] mt-3">Dependable Loan Signing Coverage in North Alabama</h1>
+      <div className="mx-auto my-6 h-px w-24" style={{background:"var(--gold)"}}/>
+      <p className="text-lg leading-relaxed" style={{color:"var(--muted)"}}>Two Generations Notary Solutions, LLC is a mother-daughter team of commissioned Alabama notaries and certified loan signing agents. We give title companies, escrow offices, attorneys and lenders careful, confidential coverage for signings across Morgan, Limestone, Madison and Lawrence counties.</p>
+      <div className="mt-8"><button onClick={go} className="btn btn-rose">Request Signing Coverage</button></div>
+    </div>
+  </section>
+  <section className="max-w-6xl mx-auto px-4 py-14">
+    <Head k="What you can count on" t="Our Coverage and Credentials"/>
+    <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {tcards.map(([i,t,items])=>(
+        <div key={t} className="card p-6">
+          <div className="flex items-center gap-3"><span style={{color:"var(--gold)"}}><Ic n={i} s={26}/></span><h3 className="h-cin text-sm font-semibold">{t}</h3></div>
+          <ul className="mt-4 grid gap-2.5">{items.map(l=><li key={l} className="flex items-start gap-2.5 text-sm"><span className="mt-1.5"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z" fill="#8f6a2c"/></svg></span>{l}</li>)}</ul>
+        </div>))}
+      <div className="card p-6 sm:col-span-2 lg:col-span-1 text-center flex flex-col items-center justify-center gap-3">
+        <h3 className="h-cin text-sm font-semibold">Talk to us directly</h3>
+        <p className="text-sm" style={{color:"var(--muted)"}}>Call or text either of us.</p>
+        <div className="flex flex-col gap-3"><ContactPills c="justify-center"/></div>
+        <a href="mailto:info@twogenerationsnotary.com" className="text-sm font-medium" style={{color:"var(--gold)"}}>info@twogenerationsnotary.com</a>
+      </div>
+    </div>
+  </section>
+  <section id="coverage-form" className="max-w-3xl mx-auto px-4 pb-16">
+    <div className="card p-6 md:p-8">
+      {sent?(
+        <div className="text-center py-8">
+          <div className="text-4xl" style={{color:"var(--gold)"}}>✦</div>
+          <h2 className="serif text-2xl font-semibold mt-2">Thank you!</h2>
+          <p className="mt-2" style={{color:"var(--muted)"}}>{ok===true?"Your request was sent to Linda and Bethany. We reply to coverage requests the same business day. Need us right away?":ok===false?"We couldn’t send that automatically. Please tap below so your request reaches us right away.":"Sending your request…"}</p>
+          <div className="mt-5 grid gap-3 max-w-xs mx-auto">
+            <a href={mail} className="btn btn-gold">Email Us</a>
+            {PEOPLE.map(([n,t])=><a key={n} href={"sms:"+t+"?&body="+encodeURIComponent(text)} className="btn btn-line"><Msg/> Text {n}</a>)}
+          </div>
+          <button className="btn btn-line mt-5" onClick={()=>{setSent(false);setOk(null);}}>Send another</button>
+        </div>
+      ):(
+        <div className="grid gap-4">
+          <div className="text-center"><h2 className="h-cin text-xl font-bold">Request Signing Coverage</h2><p className="text-sm mt-2" style={{color:"var(--muted)"}}>Tell us about the signing and we’ll confirm availability.</p></div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <input className="field" placeholder="Company *" value={f.company} onChange={set("company")}/>
+            <input className="field" placeholder="Your name *" value={f.name} onChange={set("name")}/>
+            <input className="field" type="tel" placeholder="Phone" value={f.phone} onChange={set("phone")}/>
+            <input className="field" type="email" placeholder="Email" value={f.email} onChange={set("email")}/>
+            <select className="field" value={f.type} onChange={set("type")}>{TITLE_TYPES.map(s=><option key={s}>{s}</option>)}</select>
+            <select className="field" value={f.county} onChange={set("county")}>{COUNTIES.map(s=><option key={s}>{s}</option>)}</select>
+          </div>
+          <input className="field" placeholder="Signing date and time" value={f.when} onChange={set("when")}/>
+          <textarea className="field" rows="4" placeholder="Property or signing address, number of signers, and anything we should know" value={f.msg} onChange={set("msg")}/>
+          <button className="btn btn-gold" onClick={submit}>Request Signing Coverage</button>
+          <p className="text-xs" style={{color:"var(--muted)"}}>Company, your name, and a phone or email are required.</p>
+        </div>)}
+    </div>
+  </section>
+  </>);
+}
+
 function App(){
   const get=()=>location.hash.replace("#","")||"home";
   const [h,setH]=useState(get());
-  useEffect(()=>{const f=()=>{setH(get());if(get()==="home"||get()==="contact")window.scrollTo(0,0);};window.addEventListener("hashchange",f);return()=>window.removeEventListener("hashchange",f);},[]);
-  const page=h==="contact"?"contact":"home";
+  useEffect(()=>{const f=()=>{setH(get());if(["home","contact","title"].includes(get()))window.scrollTo(0,0);};window.addEventListener("hashchange",f);return()=>window.removeEventListener("hashchange",f);},[]);
+  const page=h==="contact"?"contact":h==="title"?"title":"home";
   useEffect(()=>{ if(["services","about"].includes(h)) setTimeout(()=>document.getElementById(h)?.scrollIntoView(),30); },[h]);
   return(<>
     <Header/>
-    {page==="contact"?<Contact/>:<Home/>}
+    {page==="contact"?<Contact/>:page==="title"?<Title/>:<Home/>}
     <Footer/><StickyBar/><Chat/>
   </>);
 }
