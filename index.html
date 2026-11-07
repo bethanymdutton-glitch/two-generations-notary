@@ -83,13 +83,13 @@ function Header(){
         <a href="mailto:info@twogenerationsnotary.com" className="text-sm sm:text-base" style={{color:"var(--gold)"}}>info@twogenerationsnotary.com</a>
       </div>
       <nav className="mt-5 pt-4 border-t flex justify-center gap-5 sm:gap-8 h-cin text-[11px] sm:text-xs" style={{borderColor:"var(--line)"}}>
-        {[["#home","Home"],["#services","Services"],["#about","About"],["#contact","Contact"]].map(([h,l])=><a key={h} href={h} className="hover:opacity-70">{l}</a>)}
+        {[["#home","Home"],["#about","About"],["#services","Services"],["#contact","Contact"]].map(([h,l])=><a key={h} href={h} className="hover:opacity-70">{l}</a>)}
       </nav>
     </div>
   </header>);
 }
 
-const services=[["Mobile Notary"],["Loan Signing Agent"],["Real Estate Documents"],["Medical & Family"],["Business Documents"],["After-Hours & Rush"]];
+const services=[["Mobile Notary"],["Loan Signing Agent"],["Real Estate Documents"],["Medical & Family"],["Business Documents"]];
 const P={
  home:"M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10",
  shield:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
@@ -173,9 +173,9 @@ function Home(){
   </section>
 
   <section className="px-4 py-16">
-    <div className="max-w-4xl mx-auto rounded-3xl p-10 text-center border" style={{borderColor:"var(--rg)",backgroundImage:"linear-gradient(rgba(250,238,234,.5),rgba(250,238,234,.5)),url("+CTABG+")",backgroundSize:"cover",backgroundPosition:"center"}}>
-      <h2 className="h-cin text-3xl font-bold">Ready when you are</h2>
-      <p className="mt-2 text-lg font-semibold" style={{color:"var(--ink)"}}>Tell us what you need notarized and where. We’ll take it from there.</p>
+    <div className="max-w-4xl mx-auto rounded-3xl p-10 text-center border" style={{borderColor:"var(--rg)",backgroundImage:"linear-gradient(rgba(250,238,234,.78),rgba(250,238,234,.78)),url("+CTABG+")",backgroundSize:"cover",backgroundPosition:"center"}}>
+      <h2 className="h-cin text-3xl font-bold" style={{color:"#2b1d17"}}>Ready when you are</h2>
+      <p className="mt-2 text-lg font-semibold" style={{color:"#2b1d17"}}>Tell us what you need notarized and where. We’ll take it from there.</p>
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <a href="#contact" className="btn btn-gold">Request Appointment</a>
         <ContactPills/>
