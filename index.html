@@ -86,7 +86,7 @@ function Header(){
         <a href="mailto:info@twogenerationsnotary.com" className="text-sm sm:text-base" style={{color:"var(--gold)"}}>info@twogenerationsnotary.com</a>
       </div>
       <nav className="mt-5 pt-4 border-t flex flex-wrap justify-center gap-x-5 gap-y-2 sm:gap-x-8 h-cin text-[11px] sm:text-xs" style={{borderColor:"var(--line)"}}>
-        {[["#home","Home"],["#about","About"],["#services","Services"],["#title","Title Companies"],["#contact","Contact"]].map(([h,l])=><a key={h} href={h} className="hover:opacity-70">{l}</a>)}
+        {[["#home","Home"],["#about","About"],["#services","Services"],["#fees","Fees"],["#policies","Policies"],["#title","Title Companies"],["#contact","Contact"]].map(([h,l])=><a key={h} href={h} className="hover:opacity-70">{l}</a>)}
       </nav>
     </div>
   </header>);
@@ -163,7 +163,7 @@ function Home(){
     <div className="mt-10 grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
       <List t="Notary Services" items={colA}/>
       <List t="Loan & Real Estate" items={colB}/>
-      <div className="md:col-span-2 text-center"><a href="#title" className="btn btn-line">Title company? See our signing coverage</a></div>
+      <div className="md:col-span-2 flex flex-wrap justify-center gap-3"><a href="#fees" className="btn btn-gold">See our fees</a><a href="#title" className="btn btn-line">Title company? See our signing coverage</a></div>
       
     </div>
   </section>
@@ -379,15 +379,74 @@ function Title(){
   </>);
 }
 
+const FEES=[
+ ["General Notary Services",[["Notarization (per notarial act, per signer)","$10"],["Witness provided by us (each)","$15"],["Document printing (per page)","$0.50"]],"Alabama law caps notary fees at $10 per notarial act (Ala. Code § 36-20-74). Travel and service fees are listed separately."],
+ ["Mobile Travel Fee (from Decatur)",[["Up to 10 miles","$30"],["11 – 25 miles","$45"],["26 – 40 miles","$60"],["Over 40 miles","$60 + $1.50 per extra mile"]]],
+ ["Loan Signings",[["Refinance or HELOC","$125"],["Purchase (buyer)","$150"],["Seller package","$100"],["Reverse mortgage","$175"],["Scanbacks","+ $25"]],"Flat rate. Printing and travel within 25 miles included."],
+ ["Additional Fees",[["Evenings (after 6 pm), weekends & holidays","+ $25"],["Same-day rush appointment","+ $20"],["Hospital, nursing home or assisted living visit","+ $15"],["Waiting time (first 15 minutes free)","$10 per 15 min"],["Cancellation after we are on the way","Travel fee due"]]],
+];
+function Fees(){
+  return(
+  <section className="max-w-4xl mx-auto px-4 py-12 md:py-16">
+    <Head k="Clear, upfront pricing" t="Fee Schedule"/>
+    <p className="text-center mt-6 max-w-2xl mx-auto leading-relaxed" style={{color:"var(--muted)"}}>We quote your full total before every appointment. Payment is due at the time of service: cash, check, card, Zelle, Venmo or Cash App.</p>
+    <div className="mt-10 grid md:grid-cols-2 gap-5">
+      {FEES.map(([t,rows,note])=>(
+        <div key={t} className="card overflow-hidden">
+          <h3 className="h-cin text-xs font-bold px-5 py-3 rosegold" style={{color:"#2b1d17"}}>{t}</h3>
+          <ul className="px-5 py-2">{rows.map(([l,p])=>(
+            <li key={l} className="flex justify-between gap-4 py-2.5 text-sm border-b last:border-0" style={{borderColor:"var(--line)"}}><span>{l}</span><span className="font-semibold text-right whitespace-nowrap" style={{color:"var(--gold)"}}>{p}</span></li>))}
+          </ul>
+          {note&&<p className="px-5 pb-4 text-xs italic" style={{color:"var(--muted)"}}>{note}</p>}
+        </div>))}
+    </div>
+    <div className="mt-10 flex flex-wrap justify-center gap-3">
+      <a href="#contact" className="btn btn-gold">Request Appointment</a>
+      <a href="#policies" className="btn btn-line">Read our policies</a>
+    </div>
+  </section>);
+}
+
+const POLICIES=[
+ ["Booking & appointments",["Book by phone, text, email or the form on our website. We confirm every appointment in writing with the date, time, address and quoted total.","Tell us when you book: the type of document, how many signers, how many signatures need notarizing, and whether witnesses are needed.","Regular hours are 8 am to 6 pm, Monday through Friday. Evenings, weekends and holidays are available for an added fee.","Same-day appointments depend on availability and carry a rush fee.","For loan signings, the title company or signing service must send documents at least 2 hours before the appointment so we can print and review them."]],
+ ["Fees & payment",["Payment is due at the time of service. We accept cash, check, card, Zelle, Venmo and Cash App.","Notary fees are $10 per notarial act, the most Alabama law allows. Travel and service fees are separate and always shown on their own line.","We quote the full total before the appointment, and the price does not change unless the job changes (more signers, more stamps, longer wait).","Title companies and signing services are invoiced and pay on the terms agreed when they book.","Returned checks carry a $25 fee."]],
+ ["Cancellations, rescheduling & waiting time",["You can cancel or reschedule for free any time before we leave for your appointment. Once we are on the way, the travel fee is due.","Rescheduling is free with at least 2 hours’ notice.","If no signer is there when we arrive, or the signing can’t go ahead because of missing ID or documents, the travel fee is due.","The first 15 minutes of waiting are free. After that, waiting time is $10 per 15 minutes.","If we are running late, we will call or text you before your appointment time."]],
+ ["What signers must bring",["Every signer must be present in person with a current, government-issued photo ID.","Accepted ID includes a driver’s license, state ID card, passport or military ID. The name on the ID must match the name on the document.","Leave documents unsigned until we are there, since we must watch you sign. Fill in all blanks before the appointment.","If your document needs witnesses, tell us when you book. You can bring your own, or we can provide one for $15 each.","If a signer has no valid ID, call us before booking so we can talk through options."]],
+ ["When we may decline a notarization",["We will not notarize if anything about the signing raises a legal or ethical concern. When that happens, fees already earned (such as travel) are still due.","The signer can’t be identified, or the ID is expired, damaged or doesn’t match.","The signer seems confused, unaware of what they are signing, or pressured by someone else.","The document is incomplete, has blank spaces, or appears altered.","The signer is not physically present.","We are asked to backdate, change a date, or notarize a signature we did not see."]],
+ ["What we can’t do",["We are notaries, not attorneys, so we cannot give legal advice or tell you what to sign.","We can’t explain what a document means legally, choose which form you need, or fill out legal documents for you.","We can’t choose the type of notarial certificate for you. If your document has none, you must tell us which one you need.","We don’t notarize our own signatures, each other’s, or a family member’s, or any document we have a personal or financial interest in.","During loan signings we can point out where to sign and date, but loan terms and rates are questions for your lender."]],
+ ["Hospital & care facility visits",["We gladly come to hospitals, nursing homes, assisted living and private homes for signers who can’t travel. These visits carry a $15 added fee.","Before we come, please check the facility’s visiting rules and let staff know we are coming.","The signer must be awake, able to communicate, and understand what they are signing. If they can’t, we will reschedule rather than notarize.","The signer must still have valid ID. If it has expired, call us first.","We serve as notaries only during these visits and do not give medical opinions."]],
+ ["Privacy & document handling",["What you share with us stays confidential. We never sell or share your personal information.","We don’t keep copies of your documents after the appointment, except as a title company or signing service requires.","Loan documents we print are delivered as instructed, or shredded if left over.","Emails and files you send us are deleted once they are no longer needed for the job."]],
+ ["Safety & conduct",["We want every appointment to be safe and respectful for everyone.","We may end an appointment if we feel unsafe or if anyone is abusive. Fees earned up to that point are still due.","Please secure pets before we arrive.","If you prefer, we can meet at a public place, such as a library or coffee shop."]],
+];
+function Policies(){
+  return(
+  <section className="max-w-3xl mx-auto px-4 py-12 md:py-16">
+    <Head k="Good to know" t="Client Policies"/>
+    <p className="text-center mt-6 leading-relaxed" style={{color:"var(--muted)"}}>These policies apply to every appointment with Two Generations Notary Solutions, LLC, from a single notarization to a full loan signing.</p>
+    <div className="mt-10 grid gap-3">
+      {POLICIES.map(([t,[lead,...items]],i)=>(
+        <details key={t} className="card p-5 group" open={i===0}>
+          <summary className="h-cin text-sm font-semibold cursor-pointer flex justify-between items-center list-none">{t}<span className="text-lg transition group-open:rotate-45" style={{color:"var(--gold)"}}>+</span></summary>
+          <p className="mt-3 text-sm leading-relaxed">{lead}</p>
+          <ul className="mt-3 grid gap-2">{items.map(l=><li key={l} className="flex gap-2.5 text-sm leading-relaxed" style={{color:"var(--muted)"}}><span className="mt-0.5" style={{color:"var(--gold)"}}>✦</span><span>{l}</span></li>)}</ul>
+        </details>))}
+    </div>
+    <div className="mt-10 flex flex-wrap justify-center gap-3">
+      <a href="#fees" className="btn btn-line">See our fees</a>
+      <a href="#contact" className="btn btn-gold">Request Appointment</a>
+    </div>
+  </section>);
+}
+
 function App(){
   const get=()=>location.hash.replace("#","")||"home";
   const [h,setH]=useState(get());
-  useEffect(()=>{const f=()=>{setH(get());if(["home","contact","title"].includes(get()))window.scrollTo(0,0);};window.addEventListener("hashchange",f);return()=>window.removeEventListener("hashchange",f);},[]);
-  const page=h==="contact"?"contact":h==="title"?"title":"home";
+  useEffect(()=>{const f=()=>{setH(get());if(["home","contact","title","fees","policies"].includes(get()))window.scrollTo(0,0);};window.addEventListener("hashchange",f);return()=>window.removeEventListener("hashchange",f);},[]);
+  const page=["contact","title","fees","policies"].includes(h)?h:"home";
   useEffect(()=>{ if(["services","about"].includes(h)) setTimeout(()=>document.getElementById(h)?.scrollIntoView(),30); },[h]);
   return(<>
     <Header/>
-    {page==="contact"?<Contact/>:page==="title"?<Title/>:<Home/>}
+    {page==="contact"?<Contact/>:page==="title"?<Title/>:page==="fees"?<Fees/>:page==="policies"?<Policies/>:<Home/>}
     <Footer/><StickyBar/><Chat/>
   </>);
 }
