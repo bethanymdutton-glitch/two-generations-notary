@@ -134,7 +134,7 @@ function Home(){
     <div className="max-w-3xl mx-auto px-5 py-14 md:py-20 text-center">
       <h1 className="serif text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.1]">Two Generations.<br/><span style={{color:"var(--gold)"}}>One Trusted Service.</span></h1>
       <div className="mx-auto my-6 h-px w-24" style={{background:"var(--gold)"}}/>
-      <p className="text-lg leading-relaxed" style={{color:"var(--muted)"}}>We are a mother-daughter team of Mobile Notaries and Certified Loan Signing Agents, proudly serving Decatur and all of North Alabama. We come to your home, office, hospital or wherever is most convenient for you.</p>
+      <p className="text-lg leading-relaxed" style={{color:"var(--muted)"}}>We are a mother-daughter team of Mobile Notaries and Certified Loan Signing Agents, proudly serving Decatur and all of North Alabama. We come to your home, office, hospital or wherever is most convenient for you. Available 24/7, including last-minute appointments.</p>
       <div className="mt-8 flex flex-wrap gap-3 justify-center">
         <a href="#contact" className="btn btn-rose">Book an Appointment</a>
         </div>
@@ -304,7 +304,7 @@ const COUNTIES=["Morgan County","Limestone County","Madison County","Lawrence Co
 const tcards=[
  ["pin","Coverage",["Morgan County","Limestone County","Madison County","Lawrence County","Based in Decatur, Alabama"]],
  ["shield","Credentials",["Commissioned Alabama notaries","Certified Notary Signing Agents through the National Notary Association","Insured and background-screened","Confidential and secure"]],
- ["clock","Availability",["Weekdays","Weeknights","Weekends","We reply to coverage requests the same business day"]],
+ ["clock","Availability",["Available 24/7, including last-minute signings","Weekdays, weeknights and weekends","We reply to coverage requests the same business day"]],
  ["pen","Signing types",["Purchase","Refinance","HELOC","Reverse mortgage","Hospital and home signings"]],
  ["file","Document handling",["Printing of signing packages","Scanning and returning completed documents","Documents accepted by email"]],
 ];
@@ -383,13 +383,13 @@ const FEES=[
  ["General Notary Services",[["Notarization (per notarial act, per signer)","$10"],["Witness provided by us (each)","$15"],["Document printing (per page)","$0.50"]],"Alabama law caps notary fees at $10 per notarial act (Ala. Code § 36-20-74). Travel and service fees are listed separately."],
  ["Mobile Travel Fee (from Decatur)",[["Up to 10 miles","$30"],["11 – 25 miles","$45"],["26 – 40 miles","$60"],["Over 40 miles","$60 + $1.50 per extra mile"]]],
  ["Loan Signings",[["Refinance or HELOC","$125"],["Purchase (buyer)","$150"],["Seller package","$100"],["Reverse mortgage","$175"],["Scanbacks","+ $25"]],"Flat rate. Printing and travel within 25 miles included."],
- ["Additional Fees",[["Evenings (after 5 pm), weekends & holidays","+ $25"],["Same-day rush appointment","+ $20"],["Hospital, nursing home or assisted living visit","+ $15"],["Waiting time (first 15 minutes free)","$10 per 15 min"],["Cancellation after we are on the way","Travel fee due"]]],
+ ["Additional Fees",[["Evenings (after 5 pm), weekends & holidays","+ $25"],["Same-day or last-minute appointment","+ $20"],["Hospital, nursing home or assisted living visit","+ $15"],["Waiting time (first 15 minutes free)","$10 per 15 min"],["Cancellation after we are on the way","Travel fee due"]]],
 ];
 function Fees(){
   return(
   <section className="max-w-4xl mx-auto px-4 py-12 md:py-16">
     <Head k="Clear, upfront pricing" t="Fee Schedule"/>
-    <p className="text-center mt-6 max-w-2xl mx-auto leading-relaxed" style={{color:"var(--muted)"}}>We quote your full total before every appointment. Payment is due at the time of service: cash, check, card, Zelle, Venmo or Cash App. For after-hours, same-day or long-distance appointments, we may ask for the travel fee upfront as a deposit toward your total.</p>
+    <p className="text-center mt-6 max-w-2xl mx-auto leading-relaxed" style={{color:"var(--muted)"}}>We quote your full total before every appointment. Regular hours are 9 am to 5 pm, Monday through Friday, and we are available 24/7, including last-minute appointments, for the added fees below. Payment is due at the time of service: cash, check, card, Zelle, Venmo or Cash App. For after-hours, same-day or long-distance appointments, we may ask for the travel fee upfront as a deposit toward your total.</p>
     <div className="mt-10 grid md:grid-cols-2 gap-5">
       {FEES.map(([t,rows,note])=>(
         <div key={t} className="card overflow-hidden">
@@ -408,7 +408,7 @@ function Fees(){
 }
 
 const POLICIES=[
- ["Booking & appointments",["Book by phone, text, email or the form on our website. We confirm every appointment in writing with the date, time, address and quoted total.","Tell us when you book: the type of document, how many signers, how many signatures need notarizing, and whether witnesses are needed.","Regular hours are 9 am to 5 pm, Monday through Friday. Evenings, weekends and holidays are available for an added fee.","Same-day appointments depend on availability and carry a rush fee.","For loan signings, the title company or signing service must send documents at least 2 hours before the appointment so we can print and review them."]],
+ ["Booking & appointments",["Book by phone, text, email or the form on our website. We confirm every appointment in writing with the date, time, address and quoted total.","Tell us when you book: the type of document, how many signers, how many signatures need notarizing, and whether witnesses are needed.","Regular hours are 9 am to 5 pm, Monday through Friday. We are also available 24/7, including evenings, weekends, holidays and last-minute appointments, for an added fee listed on our Fees page.","Same-day appointments depend on availability and carry a rush fee.","For loan signings, the title company or signing service must send documents at least 2 hours before the appointment so we can print and review them."]],
  ["Fees & payment",["Payment is due at the time of service. We accept cash, check, card, Zelle, Venmo and Cash App.","Notary fees are $10 per notarial act, the most Alabama law allows. Travel and service fees are separate and always shown on their own line.","We quote the full total before the appointment, and the price does not change unless the job changes (more signers, more stamps, longer wait).","Title companies and signing services are invoiced and pay on the terms agreed when they book.","For after-hours, same-day or long-distance appointments, we may ask for the travel fee upfront by payment link. This deposit is applied to your final total and is non-refundable once we are on the way.","Returned checks carry a $25 fee."]],
  ["Cancellations, rescheduling & waiting time",["You can cancel or reschedule for free any time before we leave for your appointment. Once we are on the way, the travel fee is due.","Rescheduling is free with at least 2 hours’ notice.","If no signer is there when we arrive, or the signing can’t go ahead because of missing ID or documents, the travel fee is due.","The first 15 minutes of waiting are free. After that, waiting time is $10 per 15 minutes.","If we are running late, we will call or text you before your appointment time."]],
  ["What signers must bring",["Every signer must be present in person with a current, government-issued photo ID.","Accepted ID includes a driver’s license, state ID card, passport or military ID. The name on the ID must match the name on the document.","Leave documents unsigned until we are there, since we must watch you sign. Fill in all blanks before the appointment.","If your document needs witnesses, tell us when you book. You can bring your own, or we can provide one for $15 each.","If a signer has no valid ID, call us before booking so we can talk through options."]],
