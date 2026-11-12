@@ -405,6 +405,7 @@ function Fees(){
     <div className="mt-10 flex flex-wrap justify-center gap-3">
       <a href="/contact/" className="btn btn-gold">Request Appointment</a>
       <a href="/policies/" className="btn btn-line">Read our policies</a>
+      <a href="/assets/fee-schedule.pdf" className="btn btn-line">Printable fee schedule (PDF)</a>
     </div>
   </section>);
 }
